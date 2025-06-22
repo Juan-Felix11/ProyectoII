@@ -32,7 +32,7 @@ public class ListaEnlazada<T> {
     }
     
     //Método para ver si la lista esta vacia
-    public boolean estavacia(){
+    public boolean estaVacia(){
         return cabeza == null;
     }
     
