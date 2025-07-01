@@ -116,17 +116,153 @@ public class Nodo{//clase nodo para el arbol
 }
 
 //3.ETAPA DEL PROYECTO: ahora necesitamos crear un Arbol binario de busqueda, a partir de lo que tenemos ya creado con clase Nodo y Libro
-public class ArbolDeLibros{
-  private Nodo raiz;//atributo raiz de tipo nodo para nuestro arbol
+public class ArbolDeLibros {
+  private Nodo raiz; // Nodo raíz del árbol, inicializa con null cuando está vacío
+  private String criterio; // Criterio para ordenar por "categoria", "autor" o "titulo"
 
-  public ArbolDeLibros(){
-    this.raiz = null;//el arbol al incio esta vacio, entonces el constructor asigna null para un arbol vacio, que es lo que se quiere
+  // Constructor recibe el criterio para ordenar el árbol
+  public ArbolDeLibros(String criterio) {
+    this.raiz = null; // árbol vacío al inicio
+    this.criterio = criterio.toLowerCase(); // guardamos criterio en minúscula para evitar errores
   }
-  //métodos insertar
-  public void insertar(Libro libro){//este es el metodo que usaremos para agregar libros al arbol
-    raiz = insertarFormaRecursiva(raiz, libro);      
+
+  // Método para comparar dos libros según el criterio seleccionado
+  private int comparar(Libro libro1, Libro libro2) {
+    switch (criterio) {
+      case "categoria":
+        // Comparamos las categorías ignorando mayúsculas/minúsculas
+        return libro1.getCategoria().compareToIgnoreCase(libro2.getCategoria());
+      case "autor":
+        // Comparamos los autores ignorando mayúsculas/minúsculas
+        return libro1.getAutor().compareToIgnoreCase(libro2.getAutor());
+      case "titulo":
+      default:
+        // Comparamos los títulos ignorando mayúsculas/minúsculas (por defecto)
+        return libro1.getTitulo().compareToIgnoreCase(libro2.getTitulo());
     }
-  private Nodo insertarFormaRecursiva(Nodo actual, Libro libro){//creamos un metodo auxiliar recursivo para buscar el lugar correcto en el arbol donde insertar el nuevo libro
-  
+  }
+
+  // Método público para insertar un libro en el árbol
+  public void insertar(Libro libro) {
+    // Llama a método recursivo para encontrar la posición correcta y actualizar el árbol
+    raiz = insertarFormaRecursiva(raiz, libro);
+  }
+
+  // Método privado recursivo que inserta el libro en la posición correcta
+  private Nodo insertarFormaRecursiva(Nodo actual, Libro libro) {
+    if (actual == null) {
+      // Caso base: si llegamos a un nodo vacío, creamos un nuevo nodo con el libro
+      return new Nodo(libro);
+    }
+
+    // Comparamos el libro a insertar con el libro en el nodo actual según el criterio
+    int comparacion = comparar(libro, actual.getLibro());
+
+    if (comparacion < 0) {
+      // Si el libro a insertar es menor, vamos a la rama izquierda recursivamente
+      actual.setIzquierda(insertarFormaRecursiva(actual.getIzquierda(), libro));
+    } else if (comparacion > 0) {
+      // Si el libro a insertar es mayor, vamos a la rama derecha recursivamente
+      actual.setDerecha(insertarFormaRecursiva(actual.getDerecha(), libro));
+    } else {
+      // Si son iguales (según el criterio), no insertamos duplicados
+      System.out.println("El libro ya existe en el árbol según el criterio \"" + criterio + "\".");
+    }
+
+    // Retornamos el nodo actual actualizado para mantener el enlace con el padre
+    return actual;
+  }
+
+  // Método público para buscar un libro con valor exacto según el criterio
+  public Libro buscarExacto(String valorBuscado) {
+    // Convierte valor buscado a minúscula para comparación consistente
+    return buscarExactoRecursivo(raiz, valorBuscado.toLowerCase());
+  }
+
+  // Método privado recursivo para buscar un libro exacto
+  private Libro buscarExactoRecursivo(Nodo actual, String valorBuscado) {
+    if (actual == null) {
+      // Si nodo actual es null, no se encontró el libro
+      return null;
+    }
+
+    // Obtener el valor del nodo actual según el criterio y en minúscula
+    String valorNodo;
+    switch (criterio) {
+      case "categoria":
+        valorNodo = actual.getLibro().getCategoria().toLowerCase();
+        break;
+      case "autor":
+        valorNodo = actual.getLibro().getAutor().toLowerCase();
+        break;
+      case "titulo":
+      default:
+        valorNodo = actual.getLibro().getTitulo().toLowerCase();
+        break;
+    }
+
+    // Comparamos el valor buscado con el valor del nodo actual
+    int comparacion = valorBuscado.compareTo(valorNodo);
+
+    if (comparacion == 0) {
+      // Si coinciden exactamente, retornamos el libro
+      return actual.getLibro();
+    } else if (comparacion < 0) {
+      // Si el valor buscado es menor, buscamos en la rama izquierda
+      return buscarExactoRecursivo(actual.getIzquierda(), valorBuscado);
+    } else {
+      // Si es mayor, buscamos en la rama derecha
+      return buscarExactoRecursivo(actual.getDerecha(), valorBuscado);
+    }
+  }
+
+  // Método público para buscar libros cuyo valor comienza con un prefijo
+  public List<Libro> buscarPorPrefijo(String prefijo) {
+    List<Libro> resultado = new ArrayList<>(); // Lista donde guardaremos los libros que coincidan
+    buscarPorPrefijoRecursivo(raiz, prefijo.toLowerCase(), resultado); // Llamamos método recursivo
+    return resultado; // Retornamos la lista con resultados
+  }
+
+  // Método privado recursivo para buscar libros que comienzan con el prefijo
+  private void buscarPorPrefijoRecursivo(Nodo actual, String prefijo, List<Libro> resultado) {
+    if (actual == null) {
+      // Si nodo es null, no hay nada que buscar
+      return;
+    }
+
+    // Obtenemos el valor del nodo actual según el criterio, en minúscula para comparar
+    String valorNodo;
+    switch (criterio) {
+      case "categoria":
+        valorNodo = actual.getLibro().getCategoria().toLowerCase();
+        break;
+      case "autor":
+        valorNodo = actual.getLibro().getAutor().toLowerCase();
+        break;
+      case "titulo":
+      default:
+        valorNodo = actual.getLibro().getTitulo().toLowerCase();
+        break;
+    }
+
+    // Si el valor del nodo empieza con el prefijo
+    if (valorNodo.startsWith(prefijo)) {
+      // Agregamos el libro a la lista de resultados
+      resultado.add(actual.getLibro());
+
+      // Buscamos en ambas ramas porque puede haber más coincidencias a izquierda y derecha
+      buscarPorPrefijoRecursivo(actual.getIzquierda(), prefijo, resultado);
+      buscarPorPrefijoRecursivo(actual.getDerecha(), prefijo, resultado);
+
+    } else {
+      // Si el valor del nodo es mayor que el prefijo (alfabéticamente),
+      // buscamos solo en la rama izquierda porque ahí están los valores menores
+      if (valorNodo.compareTo(prefijo) > 0) {
+        buscarPorPrefijoRecursivo(actual.getIzquierda(), prefijo, resultado);
+      } else {
+        // Si el valor es menor, buscamos solo en la rama derecha
+        buscarPorPrefijoRecursivo(actual.getDerecha(), prefijo, resultado);
+      }
+    }
   }
 }
