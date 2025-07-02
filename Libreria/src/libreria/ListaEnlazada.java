@@ -5,7 +5,7 @@
 package libreria;
 
 /**
- *
+ *@param <T> dato
  * @author Juan Félix
  */
 public class ListaEnlazada<T> {
