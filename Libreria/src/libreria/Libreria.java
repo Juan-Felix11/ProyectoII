@@ -1,9 +1,8 @@
 package libreria;
-
-//Archivo Libreria.java
 //Este va a ser el archivo principal para ejecutar el sistema y probar el funcionamiento básico del árbol binario con consola
 
 import java.util.Scanner;
+import java.util.List;
 
 public class Libreria {
     public static void main(String[] args) {
@@ -16,7 +15,8 @@ public class Libreria {
             System.out.println("1. Insertar libro");
             System.out.println("2. Mostrar libros (in-order)");
             System.out.println("3. Buscar libro por categoria exacta");
-            System.out.println("4. Salir");
+            System.out.println("4. Buscar libros por prefijo de categoria");
+            System.out.println("5. Salir");
             System.out.print("Ingrese una opcion: ");
 
             try {
@@ -35,7 +35,7 @@ public class Libreria {
                     System.out.print("Ingrese la categoria del libro: ");
                     String categoria = sc.nextLine();
 
-                    Libro nuevo = new Libro(categoria, autor, titulo); //Creamos el objeto Libro
+                    Libro nuevo = new Libro(titulo, autor, categoria); //corregido el orden correcto del constructor
                     arbol.insertar(nuevo); //Insertamos en el árbol
                     System.out.println("Libro insertado correctamente.");
                     break;
@@ -59,16 +59,31 @@ public class Libreria {
                     break;
 
                 case 4:
+                    System.out.print("Ingrese el prefijo a buscar: ");
+                    String prefijo = sc.nextLine();
+                    List<Libro> encontrados = arbol.buscarPorPrefijo(prefijo);
+                    if (encontrados.isEmpty()) {
+                        System.out.println("No se encontraron libros con ese prefijo.");
+                    } else {
+                        System.out.println("Libros encontrados:");
+                        for (Libro l : encontrados) {
+                            System.out.println("Categoria: " + l.getCategoria() +
+                                               " | Titulo: " + l.getTitulo() +
+                                               " | Autor: " + l.getAutor());
+                        }
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Saliendo del sistema...");
                     break;
 
                 default:
-                    System.out.println("Opcion no valida. Intente de nuevo.");
+                    System.out.println("Opción no valida. Intente de nuevo.");
             }
 
-        } while (opcion != 4);
+        } while (opcion != 5);
 
         sc.close();
     }
 }
-
