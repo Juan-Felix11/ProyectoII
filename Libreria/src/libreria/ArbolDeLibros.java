@@ -5,7 +5,6 @@ import java.util.*; //importamos librería para utilizar listas y colecciones
 
 //Importamos la clase Libro creada por mi compañero, que tiene atributos como titulo, autor y categoria, y también sus métodos.
 //Este Libro será la base de datos para el árbol.
-import libreria.Libro;
 
 public class ArbolDeLibros { //creamos clase ArbolDeLibros que representa el árbol binario de búsqueda
   private NodoArbol raiz; // Nodo raíz del árbol, inicializa con null cuando está vacío
@@ -38,7 +37,7 @@ public class ArbolDeLibros { //creamos clase ArbolDeLibros que representa el ár
     } else if (comparacion > 0) { //si el libro va después, va a la derecha
       actual.setDerecha(insertarFormaRecursiva(actual.getDerecha(), libro));
     } else { //si es igual, no lo insertamos porque ya existe esa categoría
-      System.out.println("El libro ya existe en el árbol por categoría.");
+      System.out.println("El libro ya existe en el arbol por categoria.");
     }
 
     return actual; //retornamos el nodo actual para mantener el árbol correctamente enlazado
@@ -47,7 +46,7 @@ public class ArbolDeLibros { //creamos clase ArbolDeLibros que representa el ár
   // Método nuevo para mostrar los libros en orden ascendente por categoría
   // Esto se logra con un recorrido in-order: izquierda - nodo actual - derecha
   public void mostrarInOrden() {
-    System.out.println("Mostrando libros disponibles en orden por categoría:");
+    System.out.println("Mostrando libros disponibles en orden por categoria:");
     mostrarInOrdenRecursivo(raiz); //iniciamos el recorrido desde la raíz
   }
 
@@ -58,8 +57,8 @@ public class ArbolDeLibros { //creamos clase ArbolDeLibros que representa el ár
     if (actual != null) {
       mostrarInOrdenRecursivo(actual.getIzquierda()); //llamada recursiva a la izquierda (categorías menores alfabéticamente)
       //imprimimos los datos del libro actual (título, autor y categoría)
-      System.out.println("Categoría: " + actual.getLibro().getCategoria() +
-                         " | Título: " + actual.getLibro().getTitulo() +
+      System.out.println("Categoria: " + actual.getLibro().getCategoria() +
+                         " | Titulo: " + actual.getLibro().getTitulo() +
                          " | Autor: " + actual.getLibro().getAutor());
       mostrarInOrdenRecursivo(actual.getDerecha()); //llamada recursiva a la derecha (categorías mayores)
     }
