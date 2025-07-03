@@ -1,0 +1,104 @@
+/*
+DESPUES DE CONSULTAR CON EL PROFESOR, NOS DIJO QUE PODIAMOS DEJAR EL ARBOL ORDENADO CON UNICO CRITERIO.
+SE ELIGE ORDENARLOS POR CATEGORIA
+*/
+
+
+//3.ETAPA DEL PROYECTO: ahora necesitamos crear un Arbol binario de busqueda, a partir de lo que tenemos ya creado con clase Nodo y Libro
+import java.util.*;
+
+public class ArbolDeLibros {
+  private Nodo raiz; // Nodo raíz del árbol, inicializa con null cuando está vacío
+
+  public ArbolDeLibros() {
+    this.raiz = null; // árbol vacío al inicio
+  }
+
+  // Método para comparar libros solo por categoría (como dijo el profesor)
+  private int comparar(Libro libro1, Libro libro2) {
+    return libro1.getCategoria().compareToIgnoreCase(libro2.getCategoria());
+  }
+
+  // Método público para insertar un libro en el árbol
+  public void insertar(Libro libro) {
+    raiz = insertarFormaRecursiva(raiz, libro);
+  }
+
+  // Método recursivo para insertar un libro
+  private Nodo insertarFormaRecursiva(Nodo actual, Libro libro) {
+    if (actual == null) return new Nodo(libro);
+
+    int comparacion = comparar(libro, actual.getLibro());
+
+    if (comparacion < 0) {
+      actual.setIzquierda(insertarFormaRecursiva(actual.getIzquierda(), libro));
+    } else if (comparacion > 0) {
+      actual.setDerecha(insertarFormaRecursiva(actual.getDerecha(), libro));
+    } else {
+      System.out.println("El libro ya existe en el árbol por categoría.");
+    }
+
+    return actual;
+  }
+
+  // Método nuevo para mostrar los libros en orden ascendente por categoría
+  public void mostrarInOrden() {
+    System.out.println("Mostrando libros disponibles en orden por categoría:");
+    mostrarInOrdenRecursivo(raiz); //iniciamos el recorrido desde la raíz
+  }
+
+  // Este método recorre el árbol en orden (izquierda - actual - derecha)
+  // y muestra los libros ordenados por categoría
+  private void mostrarInOrdenRecursivo(Nodo actual) {
+    if (actual != null) {
+      mostrarInOrdenRecursivo(actual.getIzquierda()); //llamada recursiva a la izquierda (categorías menores)
+      //imprimimos los datos del libro actual
+      System.out.println("Categoría: " + actual.getLibro().getCategoria() +
+                         " | Título: " + actual.getLibro().getTitulo() +
+                         " | Autor: " + actual.getLibro().getAutor());
+      mostrarInOrdenRecursivo(actual.getDerecha()); //llamada recursiva a la derecha (categorías mayores)
+    }
+  }
+
+  // Buscar libro por categoría exacta
+  public Libro buscarExacto(String categoriaBuscada) {
+    return buscarExactoRecursivo(raiz, categoriaBuscada.toLowerCase());
+  }
+
+  private Libro buscarExactoRecursivo(Nodo actual, String categoriaBuscada) {
+    if (actual == null) return null;
+
+    String categoriaActual = actual.getLibro().getCategoria().toLowerCase();
+    int comparacion = categoriaBuscada.compareTo(categoriaActual);
+
+    if (comparacion == 0) return actual.getLibro();
+    else if (comparacion < 0)
+      return buscarExactoRecursivo(actual.getIzquierda(), categoriaBuscada);
+    else
+      return buscarExactoRecursivo(actual.getDerecha(), categoriaBuscada);
+  }
+
+  // Buscar libros por prefijo de categoría
+  public List<Libro> buscarPorPrefijo(String prefijo) {
+    List<Libro> resultado = new ArrayList<>();
+    buscarPorPrefijoRecursivo(raiz, prefijo.toLowerCase(), resultado);
+    return resultado;
+  }
+
+  private void buscarPorPrefijoRecursivo(Nodo actual, String prefijo, List<Libro> resultado) {
+    if (actual == null) return;
+
+    String categoria = actual.getLibro().getCategoria().toLowerCase();
+
+    if (categoria.startsWith(prefijo)) {
+      resultado.add(actual.getLibro());
+      buscarPorPrefijoRecursivo(actual.getIzquierda(), prefijo, resultado);
+      buscarPorPrefijoRecursivo(actual.getDerecha(), prefijo, resultado);
+    } else {
+      if (categoria.compareTo(prefijo) > 0)
+        buscarPorPrefijoRecursivo(actual.getIzquierda(), prefijo, resultado);
+      else
+        buscarPorPrefijoRecursivo(actual.getDerecha(), prefijo, resultado);
+    }
+  }
+}
