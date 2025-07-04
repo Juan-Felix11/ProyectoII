@@ -36,7 +36,15 @@ public class PanelLibros extends JPanel {
         setBackground(new Color(236, 240, 241)); // Gris claro
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-
+        
+        btnMostrar.setBackground(new Color(46, 204, 113)); // Verde
+        btnMostrar.setForeground(Color.WHITE);
+        btnMostrar.setFocusPainted(false);
+        btnMostrar.setFont(new Font("Arial", Font.BOLD, 13));
+        btnMostrar.setPreferredSize(new Dimension(150, 35)); // opcional
+        
+        
+        
         // Acción para mostrar los libros disponibles en el área de texto
         btnMostrar.addActionListener(e -> {
             try {

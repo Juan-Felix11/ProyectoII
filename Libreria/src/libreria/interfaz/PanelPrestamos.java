@@ -49,6 +49,12 @@ public class PanelPrestamos extends JPanel {
 
         // Botón que inicia el intento de préstamo
         JButton btnPrestar = new JButton("Prestar libro");
+        
+        btnPrestar.setBackground(new Color(46, 204, 113)); // Verde
+        btnPrestar.setForeground(Color.WHITE);
+        btnPrestar.setFocusPainted(false);
+        btnPrestar.setFont(new Font("Arial", Font.BOLD, 13));
+
 
         // Acción del botón: buscar libro por categoría y prestarlo si está disponible
         btnPrestar.addActionListener(e -> {

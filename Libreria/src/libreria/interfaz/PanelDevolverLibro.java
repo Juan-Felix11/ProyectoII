@@ -48,6 +48,18 @@ public class PanelDevolverLibro extends JPanel {
         // Botones para ver libros prestados y para devolver un libro
         JButton btnVerPrestados = new JButton("Ver libros prestados");
         JButton btnDevolver = new JButton("Devolver libro");
+        
+        btnVerPrestados.setBackground(new Color(52, 152, 219)); // Azul
+        btnVerPrestados.setForeground(Color.WHITE);
+        btnVerPrestados.setFocusPainted(false);
+        btnVerPrestados.setFont(new Font("Arial", Font.BOLD, 13));
+
+        btnDevolver.setBackground(new Color(231, 76, 60)); // Rojo
+        btnDevolver.setForeground(Color.WHITE);
+        btnDevolver.setFocusPainted(false);
+        btnDevolver.setFont(new Font("Arial", Font.BOLD, 13));
+
+        
 
         // Acción para mostrar los libros prestados por el usuario
         btnVerPrestados.addActionListener(e -> {

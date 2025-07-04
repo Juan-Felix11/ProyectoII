@@ -35,6 +35,12 @@ public class PanelHistorial extends JPanel {
         setBackground(new Color(236, 240, 241)); // Gris claro
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        btnVerHistorial.setBackground(new Color(155, 89, 182)); // Morado
+        btnVerHistorial.setForeground(Color.WHITE);
+        btnVerHistorial.setFocusPainted(false);
+        btnVerHistorial.setFont(new Font("Arial", Font.BOLD, 13));
+        btnVerHistorial.setPreferredSize(new Dimension(150, 35)); 
+
 
         // Acción para mostrar el historial del usuario en el área de texto
         btnVerHistorial.addActionListener(e -> {

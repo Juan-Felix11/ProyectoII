@@ -49,13 +49,15 @@ public class VentanaPrincipal extends JFrame {
         JButton btnPrestamos = new JButton("Préstamos");
         JButton btnAgregarLibro = new JButton("Agregar libro");
         JButton btnDevolver = new JButton("Devolver libro");
-
+        JButton btnCerrar = new JButton("Cerrar biblioteca");
+        
         // Agregar los botones al panel superior
         panelBotones.add(btnLibros);
         panelBotones.add(btnHistorial);
         panelBotones.add(btnPrestamos);
         panelBotones.add(btnAgregarLibro);
         panelBotones.add(btnDevolver);
+        panelBotones.add(btnCerrar);
 
         // Colocar panel de botones en la parte superior de la ventana
         add(panelBotones, BorderLayout.NORTH);
@@ -77,18 +79,21 @@ public class VentanaPrincipal extends JFrame {
         btnPrestamos.addActionListener(e -> setContentPaneConBotones(panelPrestamos, panelBotones));
         btnAgregarLibro.addActionListener(e -> setContentPaneConBotones(panelAgregar, panelBotones));
         btnDevolver.addActionListener(e -> setContentPaneConBotones(panelDevolver, panelBotones));
+        btnCerrar.addActionListener(e -> cerrarBiblioteca());
     
         btnLibros.setBackground(new Color(52, 152, 219));      // Azul
         btnHistorial.setBackground(new Color(155, 89, 182));   // Morado
         btnPrestamos.setBackground(new Color(241, 196, 15));   // Amarillo
         btnAgregarLibro.setBackground(new Color(46, 204, 113)); // Verde
         btnDevolver.setBackground(new Color(231, 76, 60));    // Rojo
+        btnCerrar.setBackground(new Color(231, 76, 60)); //Rojo 
         
         btnLibros.setForeground(Color.WHITE);
         btnHistorial.setForeground(Color.WHITE);
         btnPrestamos.setForeground(Color.BLACK);
         btnAgregarLibro.setForeground(Color.WHITE);
         btnDevolver.setForeground(Color.WHITE);
+        btnCerrar.setForeground(Color.WHITE);
 
         btnLibros.setFocusPainted(false);
         btnHistorial.setFocusPainted(false);
@@ -98,6 +103,17 @@ public class VentanaPrincipal extends JFrame {
         
     
     }
+    
+    public void cerrarBiblioteca() {
+        //Mostrar mensaje final 
+        JOptionPane.showMessageDialog(this, "¡Gracias por usar la biblioteca!", "Hasta pronto", JOptionPane.INFORMATION_MESSAGE);
+        //Cerrar ventana
+        this.dispose();
+        //Finalizar programa
+        System.exit(0);
+    }
+
+
         
     /**
      * Método auxiliar para cambiar el panel central y mantener los botones en la parte superior.

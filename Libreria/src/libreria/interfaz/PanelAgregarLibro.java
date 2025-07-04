@@ -53,7 +53,13 @@ public class PanelAgregarLibro extends JPanel {
         JButton btnAgregar = new JButton("Agregar libro");
         setBackground(new Color(236, 240, 241)); // Gris claro
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
+        
+        btnAgregar.setBackground(new Color(142, 68, 173)); // morado oscuro
+        btnAgregar.setForeground(Color.WHITE);
+        btnAgregar.setFocusPainted(false);
+        btnAgregar.setFont(new Font("Arial", Font.BOLD, 13));
+        
+        
         // Acción para agregar un libro nuevo al árbol
         btnAgregar.addActionListener(e -> {
             try {
