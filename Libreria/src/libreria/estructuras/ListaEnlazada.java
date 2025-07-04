@@ -52,8 +52,20 @@ public class ListaEnlazada<T> {
             actual.setSiguiente(actual.getSiguiente().getSiguiente());
         }
     }
-    
-    
-    
+    @Override
+public String toString() {
+    if (cabeza == null) {
+        return "Sin préstamos registrados.";
+    }
+
+    StringBuilder sb = new StringBuilder();
+    NodoLista actual = cabeza;
+    while (actual != null) {
+        sb.append("- ").append(actual.getDato()).append("\n");
+        actual = actual.getSiguiente();
+    }
+    return sb.toString();
+}
+  
     
 }
