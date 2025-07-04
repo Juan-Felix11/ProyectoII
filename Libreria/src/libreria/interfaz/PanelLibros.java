@@ -37,7 +37,7 @@ public class PanelLibros extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         
-        btnMostrar.setBackground(new Color(46, 204, 113)); // Verde
+        btnMostrar.setBackground(new Color(52, 152, 219)); // Azulito
         btnMostrar.setForeground(Color.WHITE);
         btnMostrar.setFocusPainted(false);
         btnMostrar.setFont(new Font("Arial", Font.BOLD, 13));

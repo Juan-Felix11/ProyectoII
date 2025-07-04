@@ -53,7 +53,7 @@ public class PanelPrestamos extends JPanel {
         btnPrestar.setBackground(new Color(46, 204, 113)); // Verde
         btnPrestar.setForeground(Color.WHITE);
         btnPrestar.setFocusPainted(false);
-        btnPrestar.setFont(new Font("Arial", Font.BOLD, 13));
+btnPrestar.setFont(new Font("Arial", Font.BOLD, 13));
 
 
         // Acción del botón: buscar libro por categoría y prestarlo si está disponible
