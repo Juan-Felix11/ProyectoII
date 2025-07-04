@@ -104,6 +104,25 @@ private void mostrarInOrdenRecursivo(NodoArbol actual, StringBuilder sb) {
             }
         }
     }
+    
+    public Libro buscarExactoPorTitulo(String titulo) {
+    return buscarExactoPorTituloRecursivo(raiz, titulo);
+}
+
+private Libro buscarExactoPorTituloRecursivo(NodoArbol actual, String titulo) {
+    if (actual == null) return null;
+
+    String actualTitulo = normalizar(actual.getLibro().getTitulo());
+    String tituloBuscar = normalizar(titulo);
+
+    if (actualTitulo.equals(tituloBuscar)) return actual.getLibro();
+
+    Libro encontrado = buscarExactoPorTituloRecursivo(actual.getIzquierda(), titulo);
+    if (encontrado == null) {
+        encontrado = buscarExactoPorTituloRecursivo(actual.getDerecha(), titulo);
+    }
+    return encontrado;
+}
 
     
    public static String normalizar(String texto) {
