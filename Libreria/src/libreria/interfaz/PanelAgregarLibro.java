@@ -54,7 +54,7 @@ public class PanelAgregarLibro extends JPanel {
         setBackground(new Color(236, 240, 241)); // Gris claro
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        btnAgregar.setBackground(new Color(142, 68, 173)); // morado oscuro
+        btnAgregar.setBackground(new Color(46, 204, 113)); // verde claro
         btnAgregar.setForeground(Color.WHITE);
         btnAgregar.setFocusPainted(false);
         btnAgregar.setFont(new Font("Arial", Font.BOLD, 13));

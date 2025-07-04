@@ -35,7 +35,7 @@ public class VentanaPrincipal extends JFrame {
         this.usuario = usuario;
 
         setTitle("Gestor de Biblioteca");
-        setSize(700, 500);
+        setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
 
@@ -86,7 +86,7 @@ public class VentanaPrincipal extends JFrame {
         btnPrestamos.setBackground(new Color(241, 196, 15));   // Amarillo
         btnAgregarLibro.setBackground(new Color(46, 204, 113)); // Verde
         btnDevolver.setBackground(new Color(231, 76, 60));    // Rojo
-        btnCerrar.setBackground(new Color(231, 76, 60)); //Rojo 
+        btnCerrar.setBackground(new Color(192, 57, 43)); //Rojo 
         
         btnLibros.setForeground(Color.WHITE);
         btnHistorial.setForeground(Color.WHITE);
