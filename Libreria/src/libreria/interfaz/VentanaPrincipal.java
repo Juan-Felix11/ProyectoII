@@ -77,8 +77,28 @@ public class VentanaPrincipal extends JFrame {
         btnPrestamos.addActionListener(e -> setContentPaneConBotones(panelPrestamos, panelBotones));
         btnAgregarLibro.addActionListener(e -> setContentPaneConBotones(panelAgregar, panelBotones));
         btnDevolver.addActionListener(e -> setContentPaneConBotones(panelDevolver, panelBotones));
-    }
+    
+        btnLibros.setBackground(new Color(52, 152, 219));      // Azul
+        btnHistorial.setBackground(new Color(155, 89, 182));   // Morado
+        btnPrestamos.setBackground(new Color(241, 196, 15));   // Amarillo
+        btnAgregarLibro.setBackground(new Color(46, 204, 113)); // Verde
+        btnDevolver.setBackground(new Color(231, 76, 60));    // Rojo
+        
+        btnLibros.setForeground(Color.WHITE);
+        btnHistorial.setForeground(Color.WHITE);
+        btnPrestamos.setForeground(Color.BLACK);
+        btnAgregarLibro.setForeground(Color.WHITE);
+        btnDevolver.setForeground(Color.WHITE);
 
+        btnLibros.setFocusPainted(false);
+        btnHistorial.setFocusPainted(false);
+        btnPrestamos.setFocusPainted(false);
+        btnAgregarLibro.setFocusPainted(false);
+        btnDevolver.setFocusPainted(false);
+        
+    
+    }
+    
     /**
      * Método auxiliar para cambiar el panel central y mantener los botones en la parte superior.
      * 
