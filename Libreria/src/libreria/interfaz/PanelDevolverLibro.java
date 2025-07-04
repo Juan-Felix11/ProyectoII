@@ -37,6 +37,9 @@ public class PanelDevolverLibro extends JPanel {
         panelSuperior.add(new JLabel("Título a devolver:"), BorderLayout.WEST);
         campoTitulo = new JTextField();
         panelSuperior.add(campoTitulo, BorderLayout.CENTER);
+        setBackground(new Color(236, 240, 241)); // Gris claro
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
 
         // Área de mensajes informativos o de error
         areaMensajes = new JTextArea();

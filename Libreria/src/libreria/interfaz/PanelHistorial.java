@@ -32,6 +32,9 @@ public class PanelHistorial extends JPanel {
         areaHistorial.setEditable(false); // Solo lectura
 
         JButton btnVerHistorial = new JButton("Ver historial");
+        setBackground(new Color(236, 240, 241)); // Gris claro
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
 
         // Acción para mostrar el historial del usuario en el área de texto
         btnVerHistorial.addActionListener(e -> {

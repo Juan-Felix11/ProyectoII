@@ -32,6 +32,10 @@ public class PanelLibros extends JPanel {
         areaLibros.setEditable(false); // Solo lectura
 
         JButton btnMostrar = new JButton("Mostrar libros");
+        
+        setBackground(new Color(236, 240, 241)); // Gris claro
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
 
         // Acción para mostrar los libros disponibles en el área de texto
         btnMostrar.addActionListener(e -> {

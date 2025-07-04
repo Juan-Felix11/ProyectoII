@@ -40,6 +40,8 @@ public class PanelPrestamos extends JPanel {
 
         campoCategoria = new JTextField();
         panelSuperior.add(campoCategoria, BorderLayout.CENTER);
+        setBackground(new Color(236, 240, 241)); // Gris claro
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Área donde se muestran mensajes informativos o de error
         areaMensajes = new JTextArea();

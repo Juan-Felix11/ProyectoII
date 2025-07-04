@@ -51,6 +51,8 @@ public class PanelAgregarLibro extends JPanel {
         areaMensajes.setEditable(false); // Solo lectura para mensajes
 
         JButton btnAgregar = new JButton("Agregar libro");
+        setBackground(new Color(236, 240, 241)); // Gris claro
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Acción para agregar un libro nuevo al árbol
         btnAgregar.addActionListener(e -> {
