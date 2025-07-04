@@ -65,7 +65,7 @@ public class PanelDevolverLibro extends JPanel {
         btnVerPrestados.addActionListener(e -> {
             try {
                 areaMensajes.setText("");
-                areaMensajes.append("Libros prestados por " + usuario.getNombre() + ":\n");
+                areaMensajes.append("Historial de préstamos de  " + usuario.getNombre() + ":\n");
                 areaMensajes.append(usuario.mostrarHistorial());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
