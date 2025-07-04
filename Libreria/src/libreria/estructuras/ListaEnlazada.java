@@ -59,26 +59,34 @@ public class ListaEnlazada<T> {
      * @param dato Dato a eliminar de la lista.
      */
     public void eliminar(T dato){
-        if (cabeza == null) return;
+    if (cabeza == null) return;
 
-        if (cabeza.getDato().equals(dato)){
-            cabeza = cabeza.getSiguiente();
+    if (normalizar(cabeza.getDato().toString()).equals(normalizar(dato.toString()))) {
+        cabeza = cabeza.getSiguiente();
+        return;
+    }
+
+    NodoLista<T> actual = cabeza;
+    while (actual.getSiguiente() != null) {
+        if (normalizar(actual.getSiguiente().getDato().toString()).equals(normalizar(dato.toString()))) {
+            actual.setSiguiente(actual.getSiguiente().getSiguiente());
             return;
         }
-        NodoLista<T> actual = cabeza;
-        while (actual.getSiguiente() != null && !actual.getSiguiente().getDato().equals(dato)){
-            actual = actual.getSiguiente();
-        }
-        if (actual.getSiguiente() != null){
-            actual.setSiguiente(actual.getSiguiente().getSiguiente());
-        }
+        actual = actual.getSiguiente();
     }
-    
+}
+
      public NodoLista getCabeza(){
         return this.cabeza;
     }
     
- 
+    public static String normalizar(String texto) {
+    texto = texto.toLowerCase();
+    texto = java.text.Normalizer.normalize(texto, java.text.Normalizer.Form.NFD);
+    texto = texto.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    return texto;
+}
+
     /**
      * Devuelve una representación en texto de todos los elementos de la lista.
      * 

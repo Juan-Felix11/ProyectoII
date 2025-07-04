@@ -28,12 +28,14 @@ public class ArchivoDeUsuarios {
      */
   public static void guardarHistorial(Usuario usuario) {
     try (PrintWriter writer = new PrintWriter(new FileWriter("historial_" + usuario.getNombre() + ".txt", false))) {
-        ListaEnlazada<String> historial = usuario.getHistorial();
-
-        NodoLista actual = historial.getCabeza();
-        while (actual != null) {
-            writer.println(actual.getDato());
-            actual = actual.getSiguiente();
+        NodoLista actual = usuario.getHistorial().getCabeza();
+        if (actual == null) {
+            writer.println("No hay préstamos registrados.");
+        } else {
+            while (actual != null) {
+                writer.println(actual.getDato());
+                actual = actual.getSiguiente();
+            }
         }
     } catch (IOException e) {
         System.out.println("Error al guardar historial: " + e.getMessage());
