@@ -9,7 +9,7 @@ import java.awt.*;
 import libreria.modelo.Usuario;
 import libreria.modelo.Libro;
 import libreria.estructuras.Arbol;
-
+import libreria.utilidades.ArchivoDeUsuarios;
 /**
  * @file PanelDevolverLibro.java
  * @brief Panel para que un usuario devuelva libros prestados.
@@ -88,10 +88,14 @@ public class PanelDevolverLibro extends JPanel {
                 if (libro != null && libro.estaPrestado()) {
                     libro.devolver();
                     usuario.getHistorial().eliminar(titulo);
+                    ArchivoDeUsuarios.guardarHistorial(usuario);
                     areaMensajes.append("Libro devuelto: " + titulo + "\n");
                 } else {
                     areaMensajes.append("El libro no está registrado como prestado o no existe.\n");
                 }
+                areaMensajes.append("\nLibros prestados por " + usuario.getNombre() + ":\n");
+                areaMensajes.append(usuario.mostrarHistorial());
+                
 
                 campoTitulo.setText(""); // Limpiar campo de texto
             } catch (Exception ex) {

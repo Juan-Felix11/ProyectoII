@@ -73,7 +73,12 @@ public class ListaEnlazada<T> {
             actual.setSiguiente(actual.getSiguiente().getSiguiente());
         }
     }
-
+    
+     public NodoLista getCabeza(){
+        return this.cabeza;
+    }
+    
+ 
     /**
      * Devuelve una representación en texto de todos los elementos de la lista.
      * 

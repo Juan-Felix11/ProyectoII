@@ -5,6 +5,8 @@
 package libreria.utilidades;
 
 import libreria.modelo.Usuario;
+import libreria.estructuras.ListaEnlazada;
+import libreria.estructuras.NodoLista;
 import java.io.*;
 
 /**
@@ -24,18 +26,20 @@ public class ArchivoDeUsuarios {
      *
      * @param usuario Objeto Usuario del cual se desea guardar el historial.
      */
-    public static void guardarHistorial(Usuario usuario) {
-        String nombreArchivo = "historial_" + usuario.getNombre() + ".txt";
+  public static void guardarHistorial(Usuario usuario) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter("historial_" + usuario.getNombre() + ".txt", false))) {
+        ListaEnlazada<String> historial = usuario.getHistorial();
 
-        // Se intenta abrir un archivo con ese nombre y escribir en él
-        try (PrintWriter pw = new PrintWriter(new FileWriter(nombreArchivo))) {
-            // Se imprime el historial del usuario (como String)
-            pw.print(usuario.mostrarHistorial());
-        } catch (IOException e) {
-            // Si algo falla (por ejemplo, permisos o espacio en disco), se muestra mensaje
-            System.out.println("Error al guardar historial: " + e.getMessage());
+        NodoLista actual = historial.getCabeza();
+        while (actual != null) {
+            writer.println(actual.getDato());
+            actual = actual.getSiguiente();
         }
+    } catch (IOException e) {
+        System.out.println("Error al guardar historial: " + e.getMessage());
     }
+}
+
 
     /**
      * Carga el historial de préstamos desde un archivo de texto y lo asigna al usuario.
