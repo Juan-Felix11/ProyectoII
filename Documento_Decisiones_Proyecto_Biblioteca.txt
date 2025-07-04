@@ -1,0 +1,51 @@
+
+Documento de Decisiones de Diseño, Acuerdos de Pareja, Implementación y Puntos de Mejora
+
+1. Acuerdos de trabajo en pareja
+
+Desde el inicio del proyecto, los dos integrantes acordamos dividir la carga de trabajo de manera equitativa, en función de las estructuras de datos principales que debían desarrollarse desde cero, y establecimos una lógica de colaboración conjunta en las demás partes del sistema. El trabajo se dividió de la siguiente forma:
+
+Estudiante 1 - Juan Félix Mata
+- Implementación completa de la estructura de lista enlazada, incluyendo inserción, eliminación, recorrido y métodos adicionales para integrarla con el historial de préstamos.
+- Integración de la lista enlazada con los paneles gráficos correspondientes en la interfaz.
+- Redacción de la documentación interna correspondiente a su parte del código.
+
+Estudiante 2 - Keylor Arley Castro
+- Desarrollo del árbol binario de búsqueda desde cero, con soporte para inserciones, búsquedas exactas, y recorrido inorden.
+- Uso del árbol como estructura principal para almacenar y organizar los libros del sistema.
+- Documentación técnica de toda la parte correspondiente al árbol.
+
+Responsabilidades compartidas:
+Ambos estudiantes colaboramos activamente en:
+- Diseño e implementación de la interfaz gráfica utilizando Java Swing.
+- Persistencia de datos mediante archivos de texto planos.
+- Inclusión de bloques try-catch para manejo de errores.
+- Redacción del archivo README.md y del presente documento.
+
+2. Decisiones de diseño tomadas
+
+- Se decidió utilizar un árbol binario de búsqueda (ABB) para representar el catálogo de libros.
+- Para el historial de préstamos se eligió una lista enlazada simple.
+- La interfaz gráfica se desarrolló con paneles modulares.
+- Persistencia mediante archivos de texto: libros.txt e historial_<nombre>.txt.
+- Interacción sencilla con el usuario mediante JOptionPane.
+
+3. Decisiones de implementación
+
+- Cambio de búsqueda por categoría a búsqueda por título en el árbol.
+- Organización del código en paquetes (modelo, estructuras, interfaz, utilidades, libreria).
+- Manejo de errores con try-catch.
+- Uso de ShutdownHook para guardar datos al cerrar.
+
+4. Puntos de mejora
+
+- Implementar recomendación de libros.
+- Búsquedas más flexibles.
+- Validaciones más robustas.
+- Mejora visual de la interfaz.
+- Almacenamiento en binario o base de datos.
+- Sistema multiusuario.
+
+5. Conclusión
+
+El proyecto fue desarrollado por ambos estudiantes, cumpliendo con los criterios del curso. Las decisiones fueron tomadas de forma conjunta y la integración funcional fue lograda satisfactoriamente.
