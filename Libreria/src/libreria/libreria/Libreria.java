@@ -86,15 +86,15 @@ public class Libreria {
 
         Usuario usuario = new Usuario(nombre);
 
-        // ✅ Cargar historial
+        // Cargar historial
         ArchivoDeUsuarios.cargarHistorial(usuario);
 
-        // ✅ Mostrar GUI
+        //  Mostrar GUI
         javax.swing.SwingUtilities.invokeLater(() -> {
             new VentanaPrincipal(arbol, usuario).setVisible(true);
         });
 
-        // ✅ Guardar datos al cerrar
+        // Guardar datos al cerrar
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             ArchivoDeLibros.guardarLibros(arbol);
             ArchivoDeUsuarios.guardarHistorial(usuario);
