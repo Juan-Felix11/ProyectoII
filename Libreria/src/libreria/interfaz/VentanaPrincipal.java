@@ -32,11 +32,13 @@ public class VentanaPrincipal extends JFrame {
         JButton btnHistorial = new JButton("Historial");
         JButton btnPrestamos = new JButton("Préstamos");
         JButton btnAgregarLibro = new JButton("Agregar libro");
-
+        JButton btnDevolver = new JButton("Devolver libro");
+        
         panelBotones.add(btnLibros);
         panelBotones.add(btnHistorial);
         panelBotones.add(btnPrestamos);
         panelBotones.add(btnAgregarLibro);
+        panelBotones.add(btnDevolver);
 
         add(panelBotones, BorderLayout.NORTH);
 
@@ -48,12 +50,14 @@ public class VentanaPrincipal extends JFrame {
         PanelHistorial panelHistorial = new PanelHistorial(usuario);
         PanelPrestamos panelPrestamos = new PanelPrestamos(arbolLibros, usuario);
         PanelAgregarLibro panelAgregar = new PanelAgregarLibro(arbolLibros);
+        PanelDevolverLibro panelDevolver = new PanelDevolverLibro(arbolLibros, usuario);
 
         // Acciones
         btnLibros.addActionListener(e -> setContentPaneConBotones(panelLibros, panelBotones));
         btnHistorial.addActionListener(e -> setContentPaneConBotones(panelHistorial, panelBotones));
         btnPrestamos.addActionListener(e -> setContentPaneConBotones(panelPrestamos, panelBotones));
         btnAgregarLibro.addActionListener(e -> setContentPaneConBotones(panelAgregar, panelBotones));
+        btnDevolver.addActionListener(e -> setContentPaneConBotones(panelDevolver, panelBotones));
     }
 
     private void setContentPaneConBotones(JPanel panel, JPanel panelBotones) {

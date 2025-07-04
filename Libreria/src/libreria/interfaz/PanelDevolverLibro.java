@@ -1,0 +1,74 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package libreria.interfaz;
+
+
+import javax.swing.*;
+import java.awt.*;
+import libreria.modelo.Usuario;
+import libreria.modelo.Libro;
+import libreria.estructuras.Arbol;
+/**
+ *
+ * @author Juan Félix
+ */
+public class PanelDevolverLibro extends JPanel {
+    private JTextArea areaMensajes;
+    private JTextField campoTitulo;
+
+    public PanelDevolverLibro(Arbol arbolLibros, Usuario usuario) {
+        setLayout(new BorderLayout());
+
+        // Panel superior para el campo
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.add(new JLabel("Título a devolver:"), BorderLayout.WEST);
+        campoTitulo = new JTextField();
+        panelSuperior.add(campoTitulo, BorderLayout.CENTER);
+
+        // Área de mensajes
+        areaMensajes = new JTextArea();
+        areaMensajes.setEditable(false);
+
+        // Botones
+        JButton btnVerPrestados = new JButton("Ver libros prestados");
+        JButton btnDevolver = new JButton("Devolver libro");
+
+        btnVerPrestados.addActionListener(e -> {
+            areaMensajes.setText("");
+            areaMensajes.append("Libros prestados por " + usuario.getNombre() + ":\n");
+            areaMensajes.append(usuario.mostrarHistorial());
+        });
+
+        btnDevolver.addActionListener(e -> {
+            String titulo = campoTitulo.getText().trim();
+            if (titulo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese el título.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Buscar libro por título
+            Libro libro = arbolLibros.buscarExactoPorTitulo(titulo);
+            if (libro != null && libro.estaPrestado()) {
+                libro.devolver();
+                usuario.getHistorial().eliminar(titulo);
+                areaMensajes.append("Libro devuelto: " + titulo + "\n");
+            } else {
+                areaMensajes.append("El libro no está registrado como prestado o no existe.\n");
+            }
+
+            campoTitulo.setText(""); // limpiar campo
+        });
+
+        // Panel inferior con botones
+        JPanel panelBotones = new JPanel(new GridLayout(1, 2));
+        panelBotones.add(btnVerPrestados);
+        panelBotones.add(btnDevolver);
+
+        // Agregar todo al panel principal
+        add(panelSuperior, BorderLayout.NORTH);
+        add(new JScrollPane(areaMensajes), BorderLayout.CENTER);
+        add(panelBotones, BorderLayout.SOUTH);
+    }
+}
