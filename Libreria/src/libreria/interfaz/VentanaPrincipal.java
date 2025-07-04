@@ -53,7 +53,7 @@ public class VentanaPrincipal extends JFrame {
         btnLibros.addActionListener(e -> setContentPaneConBotones(panelLibros, panelBotones));
         btnHistorial.addActionListener(e -> setContentPaneConBotones(panelHistorial, panelBotones));
         btnPrestamos.addActionListener(e -> setContentPaneConBotones(panelPrestamos, panelBotones));
-        
+        btnAgregarLibro.addActionListener(e -> setContentPaneConBotones(panelAgregar, panelBotones));
     }
 
     private void setContentPaneConBotones(JPanel panel, JPanel panelBotones) {
