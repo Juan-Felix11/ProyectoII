@@ -98,7 +98,7 @@ public class VentanaPrincipal extends JFrame {
         
     
     }
-    
+        
     /**
      * Método auxiliar para cambiar el panel central y mantener los botones en la parte superior.
      * 
