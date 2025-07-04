@@ -4,6 +4,7 @@ package libreria.estructuras;
 import libreria.modelo.Libro;
 
 
+//@author Keylor
 public class NodoArbol{//clase nodo para el arbol
   private Libro libro;//atributo libro de tipo Libro
   private NodoArbol izquierda;//nodo hijo referencia izquierda
