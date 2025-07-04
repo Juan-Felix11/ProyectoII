@@ -7,47 +7,86 @@ package libreria.modelo;
 import libreria.estructuras.ListaEnlazada;
 
 /**
- *
+ * @file Usuario.java
+ * @brief Representa a un usuario del sistema con nombre e historial de préstamos.
+ * 
+ * Cada usuario tiene una lista enlazada de títulos de libros prestados.
+ * 
  * @author Juan Félix
  */
 public class Usuario {
     private String nombre; 
-    private ListaEnlazada<String> historial; //Almacena el historial de préstamos (titulos de libros)
-    
+    private ListaEnlazada<String> historial; // Almacena el historial de préstamos (títulos de libros)
+
+    /**
+     * Constructor que crea un usuario con nombre y lista vacía de historial.
+     * 
+     * @param nombre Nombre del usuario.
+     */
     public Usuario(String nombre){
         this.nombre = nombre;
         this.historial = new ListaEnlazada<>();
     }
-    
-    //Getters
+
+    // Getters
+
+    /**
+     * Devuelve el nombre del usuario.
+     * 
+     * @return Nombre del usuario.
+     */
     public String getNombre(){
         return this.nombre;
     }
+
+    /**
+     * Devuelve la lista enlazada con el historial de préstamos.
+     * 
+     * @return ListaEnlazada con los títulos prestados.
+     */
     public ListaEnlazada<String> getHistorial(){
         return this.historial; 
     }
-    
-    //Setters
+
+    // Setters
+
+    /**
+     * Cambia el nombre del usuario.
+     * 
+     * @param nombre Nuevo nombre.
+     */
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
-    
-    //Agregar un libro al historial 
+
+    /**
+     * Agrega un título de libro al historial de préstamos del usuario.
+     * 
+     * @param tituloLibro Título del libro prestado.
+     */
     public void agregarPrestamo(String tituloLibro){
         historial.agregar(tituloLibro); 
     }
-    
-    //Mostrar el historial como String
+
+    /**
+     * Muestra el historial de préstamos del usuario en formato de texto.
+     * 
+     * @return String con los títulos prestados o mensaje si no hay.
+     */
     public String mostrarHistorial(){
         if (historial.estaVacia()){
-            return "No hay prestamos registrados: ";
+            return "No hay préstamos registrados.";
         }
         return historial.toString();  
     }
-    
+
+    /**
+     * Representación del usuario como texto.
+     * 
+     * @return Nombre del usuario.
+     */
     @Override
     public String toString(){
         return "Nombre: " + nombre;
     }
-    
 }

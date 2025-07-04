@@ -4,18 +4,32 @@
  */
 package libreria.interfaz;
 
-/**
- *
- * @author Juan Félix
- */import javax.swing.*;
+import javax.swing.*;
 import java.awt.*;
 import libreria.estructuras.Arbol;
 import libreria.modelo.Usuario;
 
+/**
+ * @file VentanaPrincipal.java
+ * @brief Interfaz principal del sistema de biblioteca.
+ * 
+ * Esta ventana muestra los botones para navegar entre distintas funciones:
+ * ver libros, historial, préstamos, agregar libros y devolver libros.
+ * Usa `setContentPaneConBotones()` para cambiar el panel central según lo que el usuario desee hacer.
+ * 
+ * @author Juan Félix
+ */
 public class VentanaPrincipal extends JFrame {
     private Arbol arbolLibros;
     private Usuario usuario;
 
+    /**
+     * Constructor de la ventana principal.
+     * Inicializa los botones y los paneles asociados a cada funcionalidad.
+     *
+     * @param arbolLibros Árbol binario que contiene los libros.
+     * @param usuario Usuario actual que interactúa con la biblioteca.
+     */
     public VentanaPrincipal(Arbol arbolLibros, Usuario usuario) {
         this.arbolLibros = arbolLibros;
         this.usuario = usuario;
@@ -23,36 +37,41 @@ public class VentanaPrincipal extends JFrame {
         setTitle("Gestor de Biblioteca");
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Centrar la ventana
 
+        // Panel con los botones de navegación
         JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new GridLayout(1, 3));
+        panelBotones.setLayout(new GridLayout(1, 5)); // 5 botones, uno por funcionalidad
 
+        // Botones para cada acción
         JButton btnLibros = new JButton("Ver libros");
         JButton btnHistorial = new JButton("Historial");
         JButton btnPrestamos = new JButton("Préstamos");
         JButton btnAgregarLibro = new JButton("Agregar libro");
         JButton btnDevolver = new JButton("Devolver libro");
-        
+
+        // Agregar los botones al panel superior
         panelBotones.add(btnLibros);
         panelBotones.add(btnHistorial);
         panelBotones.add(btnPrestamos);
         panelBotones.add(btnAgregarLibro);
         panelBotones.add(btnDevolver);
 
+        // Colocar panel de botones en la parte superior de la ventana
         add(panelBotones, BorderLayout.NORTH);
 
+        // Panel central vacío al iniciar (se llena cuando se presiona un botón)
         JPanel panelCentral = new JPanel();
         add(panelCentral, BorderLayout.CENTER);
 
-        // Crear paneles
+        // Crear paneles correspondientes a cada botón
         PanelLibros panelLibros = new PanelLibros(arbolLibros);
         PanelHistorial panelHistorial = new PanelHistorial(usuario);
         PanelPrestamos panelPrestamos = new PanelPrestamos(arbolLibros, usuario);
         PanelAgregarLibro panelAgregar = new PanelAgregarLibro(arbolLibros);
         PanelDevolverLibro panelDevolver = new PanelDevolverLibro(arbolLibros, usuario);
 
-        // Acciones
+        // Asignar las acciones a cada botón para mostrar el panel correspondiente
         btnLibros.addActionListener(e -> setContentPaneConBotones(panelLibros, panelBotones));
         btnHistorial.addActionListener(e -> setContentPaneConBotones(panelHistorial, panelBotones));
         btnPrestamos.addActionListener(e -> setContentPaneConBotones(panelPrestamos, panelBotones));
@@ -60,11 +79,17 @@ public class VentanaPrincipal extends JFrame {
         btnDevolver.addActionListener(e -> setContentPaneConBotones(panelDevolver, panelBotones));
     }
 
+    /**
+     * Método auxiliar para cambiar el panel central y mantener los botones en la parte superior.
+     * 
+     * @param panel Panel que se desea mostrar en el centro de la ventana.
+     * @param panelBotones Panel que contiene los botones de navegación.
+     */
     private void setContentPaneConBotones(JPanel panel, JPanel panelBotones) {
-        getContentPane().removeAll();
-        add(panelBotones, BorderLayout.NORTH);
-        add(panel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+        getContentPane().removeAll(); // Quitar todo lo que hay en la ventana
+        add(panelBotones, BorderLayout.NORTH); // Volver a colocar los botones
+        add(panel, BorderLayout.CENTER); // Agregar el nuevo panel seleccionado
+        revalidate(); // Volver a calcular el diseño
+        repaint();    // Volver a dibujar la ventana
     }
 }

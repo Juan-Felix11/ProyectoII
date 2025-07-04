@@ -1,23 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package libreria.utilidades;
 
 /**
+ * @file ArchivoDeLibros.java
+ * @brief Clase encargada de guardar y cargar libros desde un archivo.
  *
- * @author Juan Félix
+ * Esta clase se encarga de escribir los libros almacenados en el árbol
+ * hacia un archivo de texto, y también permite cargarlos nuevamente.
+ * Usa manejo de errores con try-catch para evitar caídas del sistema.
+ *
+ * @author Keylor
  */
-import libreria.estructuras.Arbol;
-import libreria.modelo.Libro;
 
+import libreria.estructuras.Arbol;
+import libreria.estructuras.NodoArbol;
+import libreria.modelo.Libro;
 import java.io.*;
 
 public class ArchivoDeLibros {
 
-    private static final String ARCHIVO_LIBROS = "libros.txt";
+    private static final String ARCHIVO_LIBROS = "libros.txt"; // Nombre del archivo
 
-    // Guardar libros
+    /**
+     * Guarda todos los libros del árbol en un archivo de texto.
+     * Cada línea representa un libro con formato: titulo;autor;categoria;prestado
+     * @param arbol Árbol que contiene los libros
+     */
     public static void guardarLibros(Arbol arbol) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(ARCHIVO_LIBROS))) {
             guardarRecursivo(arbol.getRaiz(), pw);
@@ -26,7 +33,12 @@ public class ArchivoDeLibros {
         }
     }
 
-    private static void guardarRecursivo(libreria.estructuras.NodoArbol nodo, PrintWriter pw) {
+    /**
+     * Método recursivo que recorre el árbol en in-order y guarda los libros.
+     * @param nodo Nodo actual
+     * @param pw PrintWriter para escribir al archivo
+     */
+    private static void guardarRecursivo(NodoArbol nodo, PrintWriter pw) {
         if (nodo != null) {
             Libro libro = nodo.getLibro();
             pw.println(libro.getTitulo() + ";" + libro.getAutor() + ";" + libro.getCategoria() + ";" + libro.estaPrestado());
@@ -35,10 +47,14 @@ public class ArchivoDeLibros {
         }
     }
 
-    // Cargar libros
+    /**
+     * Carga los libros desde un archivo y los inserta en el árbol.
+     * Si el archivo no existe o hay error de lectura, se maneja con try-catch.
+     * @param arbol Árbol donde se insertarán los libros
+     */
     public static void cargarLibros(Arbol arbol) {
         File archivo = new File(ARCHIVO_LIBROS);
-        if (!archivo.exists()) return;
+        if (!archivo.exists()) return; // Si no hay archivo, no hay nada que cargar
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -47,7 +63,7 @@ public class ArchivoDeLibros {
                 if (partes.length == 4) {
                     Libro libro = new Libro(partes[0], partes[1], partes[2]);
                     if (Boolean.parseBoolean(partes[3])) {
-                        libro.prestar();
+                        libro.prestar(); // Si estaba prestado, lo marcamos igual
                     }
                     arbol.insertar(libro);
                 }
@@ -56,4 +72,4 @@ public class ArchivoDeLibros {
             System.out.println("Error al cargar libros: " + e.getMessage());
         }
     }
-}
+} 
