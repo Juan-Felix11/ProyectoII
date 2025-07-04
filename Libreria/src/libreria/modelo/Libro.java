@@ -51,6 +51,10 @@ public class Libro {
     public void setEstadoPrestamo(boolean estadoPrestamo){
         this.estadoPrestamo = estadoPrestamo;   
     }
+    public boolean estaPrestado() {
+    return this.estadoPrestamo;
+    }
+
     
     //Marcar libro como prestado
     public void prestar(){
