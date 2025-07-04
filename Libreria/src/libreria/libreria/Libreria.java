@@ -11,6 +11,7 @@ import libreria.utilidades.ArchivoDeLibros;
 import libreria.utilidades.ArchivoDeUsuarios;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @file Libreria.java
@@ -21,7 +22,7 @@ import javax.swing.*;
  */
 public class Libreria {
 
-    /**
+  /**
      * Método principal del sistema.
      * Aquí se inicializa el árbol de libros, se cargan los datos desde archivos,
      * se solicita el nombre del usuario, y se lanza la interfaz gráfica.
@@ -29,67 +30,61 @@ public class Libreria {
      *
      * @param args Argumentos de línea de comandos (no se utilizan).
      */
-    public static void main(String[] args) {
-        Arbol arbol = new Arbol(); // Árbol binario para guardar los libros
+     public static void main(String[] args) {
+        Arbol arbol = new Arbol();
 
-        try {
-            // Intentar cargar libros desde archivo
-            ArchivoDeLibros.cargarLibros(arbol);
-        } catch (Exception e) {
-            System.out.println("Error al cargar los libros: " + e.getMessage());
-        }
+        // ✅ Cargar libros desde archivo
+        ArchivoDeLibros.cargarLibros(arbol);
 
-        // Si el árbol está vacío (no hay archivo o está vacío), agregar algunos libros de prueba
         if (arbol.estaVacio()) {
             arbol.insertar(new Libro("Cien años de soledad", "Gabriel García Márquez", "Novela"));
             arbol.insertar(new Libro("El principito", "Antoine de Saint-Exupéry", "Fábula"));
             arbol.insertar(new Libro("1984", "George Orwell", "Distopía"));
         }
 
-        String nombre;
+        String nombre = "Invitado"; // valor por defecto
+
         try {
-            // Pedir nombre del usuario con JOptionPane
-            nombre = JOptionPane.showInputDialog(null, "Ingrese su nombre:", "Bienvenido", JOptionPane.PLAIN_MESSAGE);
-            if (nombre == null || nombre.trim().isEmpty()) {
-                nombre = "Invitado";
+            JPanel panel = new JPanel(new BorderLayout(5, 5));
+            panel.setBackground(new Color(236, 240, 241));
+            panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            JLabel label = new JLabel("¡Bienvenido a la Biblioteca!");
+            label.setFont(new Font("Arial", Font.BOLD, 16));
+            label.setForeground(new Color(52, 73, 94));
+
+            JTextField textField = new JTextField();
+            textField.setBackground(Color.WHITE);
+            textField.setForeground(new Color(44, 62, 80));
+
+            panel.add(label, BorderLayout.NORTH);
+            panel.add(textField, BorderLayout.CENTER);
+
+            int result = JOptionPane.showConfirmDialog(null, panel, "Ingrese su nombre", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION && !textField.getText().trim().isEmpty()) {
+                nombre = textField.getText().trim();
             }
+
         } catch (Exception e) {
-            // Si ocurre algún error con JOptionPane, usar nombre por defecto
-            System.out.println("Error al leer nombre del usuario, se usará 'Invitado'.");
-            nombre = "Invitado";
+            JOptionPane.showMessageDialog(null, "Error al capturar el nombre. Se usará 'Invitado'.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Error al pedir nombre: " + e.getMessage());
         }
 
-        Usuario usuario = new Usuario(nombre); // Crear objeto usuario
+        Usuario usuario = new Usuario(nombre);
 
-        try {
-            // Cargar historial desde archivo (si existe)
-            ArchivoDeUsuarios.cargarHistorial(usuario);
-        } catch (Exception e) {
-            System.out.println("Error al cargar historial del usuario: " + e.getMessage());
-        }
+        // ✅ Cargar historial
+        ArchivoDeUsuarios.cargarHistorial(usuario);
 
-        // Mostrar la interfaz gráfica de la biblioteca
-        try {
-            javax.swing.SwingUtilities.invokeLater(() -> {
-                new VentanaPrincipal(arbol, usuario).setVisible(true);
-            });
-        } catch (Exception e) {
-            System.out.println("Error al iniciar la interfaz gráfica: " + e.getMessage());
-        }
+        // ✅ Mostrar GUI
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            new VentanaPrincipal(arbol, usuario).setVisible(true);
+        });
 
-        // Guardar libros e historial automáticamente al cerrar el programa
+        // ✅ Guardar datos al cerrar
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                ArchivoDeLibros.guardarLibros(arbol);
-            } catch (Exception e) {
-                System.out.println("Error al guardar los libros: " + e.getMessage());
-            }
-
-            try {
-                ArchivoDeUsuarios.guardarHistorial(usuario);
-            } catch (Exception e) {
-                System.out.println("Error al guardar el historial del usuario: " + e.getMessage());
-            }
+            ArchivoDeLibros.guardarLibros(arbol);
+            ArchivoDeUsuarios.guardarHistorial(usuario);
         }));
-    }
+     }
 }
