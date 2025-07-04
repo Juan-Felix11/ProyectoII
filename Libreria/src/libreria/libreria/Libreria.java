@@ -38,8 +38,21 @@ public class Libreria {
 
         if (arbol.estaVacio()) {
             arbol.insertar(new Libro("Cien años de soledad", "Gabriel García Márquez", "Novela"));
-            arbol.insertar(new Libro("El principito", "Antoine de Saint-Exupéry", "Fábula"));
             arbol.insertar(new Libro("1984", "George Orwell", "Distopía"));
+            arbol.insertar(new Libro("El principito", "Antoine de Saint-Exupéry", "Fábula"));
+            arbol.insertar(new Libro("Orgullo y prejuicio", "Jane Austen", "Romántica"));
+            arbol.insertar(new Libro("El nombre de la rosa", "Umberto Eco", "Misterio"));
+            arbol.insertar(new Libro("Drácula", "Bram Stoker", "Terror"));
+            arbol.insertar(new Libro("La Odisea", "Homero", "Épica"));
+            arbol.insertar(new Libro("Don Quijote de la Mancha", "Miguel de Cervantes", "Aventura"));
+            arbol.insertar(new Libro("Hamlet", "William Shakespeare", "Tragedia"));
+            arbol.insertar(new Libro("La divina comedia", "Dante Alighieri", "Poesía"));
+            arbol.insertar(new Libro("El arte de la guerra", "Sun Tzu", "Estrategia"));
+            arbol.insertar(new Libro("Breve historia del tiempo", "Stephen Hawking", "Ciencia"));
+            arbol.insertar(new Libro("El capital", "Karl Marx", "Economía"));
+            arbol.insertar(new Libro("Así habló Zaratustra", "Friedrich Nietzsche", "Filosofía"));
+            arbol.insertar(new Libro("Crimen y castigo", "Fiódor Dostoyevski", "Psicológica"));
+
         }
 
         String nombre = "Invitado"; // valor por defecto
