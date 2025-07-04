@@ -78,6 +78,7 @@ public class PanelDevolverLibro extends JPanel {
         btnDevolver.addActionListener(e -> {
             try {
                 String titulo = campoTitulo.getText().trim();
+                areaMensajes.setText("");
                 if (titulo.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Ingrese el título.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return;

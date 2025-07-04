@@ -5,6 +5,7 @@
 package libreria.modelo;
 
 import libreria.estructuras.ListaEnlazada;
+import libreria.estructuras.NodoLista;
 
 /**
  * @file Usuario.java
@@ -73,12 +74,22 @@ public class Usuario {
      * 
      * @return String con los títulos prestados o mensaje si no hay.
      */
-    public String mostrarHistorial(){
-        if (historial.estaVacia()){
-            return "No hay préstamos registrados.";
+   public String mostrarHistorial() {
+    StringBuilder sb = new StringBuilder();
+    NodoLista<String> actual = historial.getCabeza();
+
+    if (actual == null) {
+        sb.append("- No hay préstamos registrados.\n");
+    } else {
+        while (actual != null) {
+            sb.append("- ").append(actual.getDato()).append("\n");
+            actual = actual.getSiguiente();
         }
-        return historial.toString();  
     }
+
+    return sb.toString();
+}
+
 
     /**
      * Representación del usuario como texto.
